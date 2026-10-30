@@ -9,11 +9,13 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
     public function index() {
         $posts = Post::with('user')->get();
+        Log::critical("daily check info: ",['user'=> Auth::user()]);
         return view('post_index', ['posts' => $posts]);
     }
 

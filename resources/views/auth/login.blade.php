@@ -37,6 +37,9 @@
                     </form>
 
                     <hr class="my-4">
+                     <div class="text-center">
+                        <p class="mb-0">Quên mật khẩu? <a href="{{ route('password.request') }}">Quên mật khẩu?</a></p>
+                    </div>
                     <div class="text-center">
                         <p class="mb-0">Chưa có tài khoản? <a href="{{ route('register') }}" class="text-primary font-weight-bold">Đăng ký ngay</a></p>
                     </div>

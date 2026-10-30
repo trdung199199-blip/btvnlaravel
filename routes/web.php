@@ -1,8 +1,12 @@
 <?php
 
+use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Notifications\VerifyEmailNotification;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
     return redirect()->route('post.index');
@@ -11,6 +15,8 @@ Route::get('/', function () {
 Route::get('/posts', [PostController::class, 'index'])->name('post.index');
 Route::get('/posts/detail/{id}', [PostController::class, 'show'])->name('post.show');
 Route::middleware('guest')->group(function () {
+    Route::get('/forgot_password', [AuthController::class, 'forgotPassword'])->name('password.request');
+    Route::post('/forgot_password', [AuthController::class, 'processForgotPassword'])->name('password.email');
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/login', [AuthController::class, 'authenticate'])->name('login.post');
@@ -24,4 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/posts/{id}', [PostController::class, 'update'])->name('post.update');
     Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('post.destroy');
+});
+
+Route::get('/404', function() {
+    abort(404);
 });
