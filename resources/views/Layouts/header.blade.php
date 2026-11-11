@@ -9,12 +9,10 @@
             
             <div class="collapse navbar-collapse" id="blogNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a class="nav-link" href="{{ route('post.index') }}">Trang chủ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Tin tức</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Thời trang</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Du lịch</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
-                
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('post.index') }}">Trang chủ</a>
+                    </li>
+
                     @guest
                         <li class="nav-item ml-lg-3">
                             <a class="nav-link text-primary font-weight-bold" href="{{ route('login') }}">Đăng nhập</a>
@@ -30,7 +28,16 @@
                                 Chào, {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('post.create') }}">Viết bài mới</a>
+                                @can('admin')
+                                    <h6 class="dropdown-header font-weight-bold text-dark">Khu vực Admin</h6>
+                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">📊 Thống kê</a>
+                                    <a class="dropdown-item" href="{{ route('admin.category.index') }}">📁 Quản lý Danh mục</a>
+                                    <div class="dropdown-divider"></div>
+                                @endcan
+
+                                <a class="dropdown-item" href="{{ route('post.create') }}">+ Viết bài mới</a>
+                                <a class="dropdown-item" href="{{ route('post.trash') }}">🗑️ Thùng rác của tôi</a>
+                                
                                 <div class="dropdown-divider"></div>
                                 
                                 <form action="{{ route('logout') }}" method="POST">

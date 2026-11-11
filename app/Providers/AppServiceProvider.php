@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Comment; // Thêm model Comment
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-       
+        //
     }
 
     /**
@@ -27,7 +29,18 @@ class AppServiceProvider extends ServiceProvider
         });
         
         Gate::define('delete-post', function (User $user, Post $post) {
-            return $user->id === $post->user_id;
+            return $user->id === $post->user_id || $user->is_admin;
         });
+
+        Gate::define('admin', function (User $user) {
+            return $user->is_admin;
+        });
+
+        Gate::define('delete-comment', function (User $user, Comment $comment) {
+            return $user->id === $comment->user_id 
+                || $user->id === $comment->post->user_id 
+                || $user->is_admin;
+        });
+        Paginator::useBootstrapFive();
     }
 }

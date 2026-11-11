@@ -15,6 +15,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+    // User viết nhiều bình luận
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;

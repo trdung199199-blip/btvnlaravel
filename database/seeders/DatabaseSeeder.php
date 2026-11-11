@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -26,6 +27,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             PostSeeder::class,
+            CategorySeeder::class,
+            TagSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

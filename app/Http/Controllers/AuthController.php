@@ -10,6 +10,7 @@ use App\Mail\ResetPassword;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Jobs\SentMailJob;
 
 class AuthController extends Controller
 {
